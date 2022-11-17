@@ -69,8 +69,8 @@ public:
     {
         this->publish_date = publish_date;
     }
-    void setpublish(int date);
-    int getpublish();
+    void setdate(int date);
+    int getdate();
 private:
     int publish_date;
 };
@@ -116,6 +116,10 @@ void Book::setavailable(int available)
 {
     this->available = available;
 }
+int Book::getavailable()
+{
+    return available;
+}
 void Book::setrented(int rented)
 {
     this->rented = rented;
@@ -140,11 +144,11 @@ string ComputerBook::getpublisher()
 {
     return publisher;
 }
-void Novel::setpublish(int date)
+void Novel::setdate(int date)
 {
     this->publish_date = date;
 }
-int Novel::getpublish()
+int Novel::getdate()
 {
     return publish_date;
 }

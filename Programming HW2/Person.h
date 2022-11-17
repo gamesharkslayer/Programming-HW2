@@ -9,7 +9,7 @@ public:
     int getid();
     void setid(int id);
     string getname();
-    void setname();
+    void setname(string name);
     int getcount();
     void setcount(int count);
 private:
@@ -18,7 +18,7 @@ private:
     int count;
 };
 
-class Student : protected Person
+class Student : public Person
 {
     // complete the class
 public:
@@ -46,7 +46,7 @@ private:
     int code[2];
 };
 
-class Teacher : protected Person
+class Teacher : public Person
 {
     // complete the class
 public:
@@ -83,6 +83,13 @@ private:
     int code[3];
 };
 
+struct PersonNode
+{
+    Person person;
+    PersonNode* link;
+};
+PersonNode* person[2];
+
 Person::Person()
 {
     id = 0000;
@@ -108,7 +115,7 @@ string Person::getname()
 {
     return name;
 }
-void Person::setname()
+void Person::setname(string name)
 {
     this->name = name;
 }
