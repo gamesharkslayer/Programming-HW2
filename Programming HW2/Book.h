@@ -1,4 +1,5 @@
 using namespace std;
+
 class Book
 {
     // complete the class
@@ -14,7 +15,9 @@ public:
     int getavailable();
     void setrented(int rented);
     int getrented();
-
+  //  void addbook(int code);
+    void removebook(BookNode* head, int code);
+ 
 private:
     int code;
     string title;
@@ -75,6 +78,7 @@ private:
     int publish_date;
 };
 
+
 struct BookNode
 {
     Book book;
@@ -128,6 +132,27 @@ int Book::getrented()
 {
     return rented;
 }
+//error
+void Book::removebook(BookNode* head, int code)
+{
+
+    BookNode* current = head; // Initialize current
+    int newava = current->book.getavailable();
+    int newrent = current->book.getrented();
+    while (current != NULL) {
+        if (current->book.getcode() == code)
+        {
+            newava--;
+            newrent++;
+            current->book.setavailable(newava);
+            current->book.setrented(newrent);
+        }
+
+        current = current->link;
+    }
+
+}
+
 void ChildrenBook::setage(int age)
 {
     this->age = age;

@@ -13,9 +13,10 @@ using namespace std;
 void processdata(ChildrenBook temp, ComputerBook computer, Novel noveltemp);
 void processperson(Teacher techertemp, Student studenttemp);
 void insert(BookNode** head_ref, BookNode* node);
-void insertperson(BookNode** head_ref, BookNode* node)
+void insertperson(PersonNode** head_ref, PersonNode* node);
 void print(BookNode* head);
 void search();
+void showallbooks();
 int main()
 {
     //Book linked list start
@@ -25,8 +26,8 @@ int main()
     Teacher techertemp;
     Student studenttemp;
     processdata(temp,computer,noveltemp);
-    print(library[1]);
-    /*
+  //  print(library[1]);
+    
     cout << "--------------------------" << endl << "         Menu" << endl << "--------------------------" << endl;
     cout << "  1. Search a book" << endl;
     cout << "  2. Rent a book" << endl;
@@ -40,8 +41,7 @@ int main()
         cin >> choice;
         if (choice == 5)
         {
-            
-            cout << "==================================" << endl << "   Childrens Book   " << endl << "==================================" << endl;
+            cout << "==================================" << endl << "   Childrens Books   " << endl << "==================================" << endl;
             cout << " Code ";
             cout << setw(10);
             cout << " Title ";
@@ -52,10 +52,31 @@ int main()
             cout << endl;
             cout << "---------------------------------" << endl;
             print(library[0]);
-            
+            cout << "==================================" << endl << "   Computer Books   " << endl << "==================================" << endl;
+            cout << " Code ";
+            cout << setw(10);
+            cout << " Title ";
+            cout << setw(5);
+            cout << " Age ";
+            cout << " Available ";
+            cout << " Rented ";
+            cout << endl;
+            cout << "---------------------------------" << endl;
+             print(library[1]);
+            cout << "==================================" << endl << "   Novel Books   " << endl << "==================================" << endl;
+            cout << " Code ";
+            cout << setw(10);
+            cout << " Title ";
+            cout << setw(5);
+            cout << " Age ";
+            cout << " Available ";
+            cout << " Rented ";
+            cout << endl;
+            cout << "---------------------------------" << endl;
+             print(library[2]);
         }
     }
-    */
+    
 }
 
 void processdata(ChildrenBook temp, ComputerBook computer, Novel noveltemp)
@@ -138,11 +159,18 @@ void processperson(Teacher teachtemp, Student studenttemp)
                 teachtemp.setcount(numberrented);
                 PersonNode* node = new PersonNode;
                 node->person = teachtemp;
-                insert(&person[0], node);
+                insertperson(&person[0], node);
             }
             if (numberrented == 2)
             {
                 infile >> code1 >> code2;
+                teachtemp.setname(name);
+                teachtemp.setid(id);
+                teachtemp.setcount(numberrented);
+                PersonNode* node = new PersonNode;
+                node->person = teachtemp;
+                insertperson(&person[0], node);
+                //teachtemp.removebook(library[])
             }
         }
         else if ((id > 100) && (id < 300))
@@ -172,6 +200,64 @@ void insert(BookNode** head_ref, BookNode* node)
         node->link = current->link;
         current->link = node;
     }
+}
+void insertperson(PersonNode** head_ref, PersonNode* node)
+{
+    PersonNode* current;
+    /* Special case for the head end */
+    if (*head_ref == NULL || (*head_ref)->person.getid() >= node->person.getid())
+    {
+        node->link = *head_ref;
+        *head_ref = node;
+    }
+    else
+    {
+        /* Locate the node before the
+ point of insertion */
+        current = *head_ref;
+        while (current->link != NULL && current->link->person.getid() < node->person.getid())
+        {
+            current = current->link;
+        }
+        node->link = current->link;
+        current->link = node;
+    }
+}
+void showallbook()
+{
+    cout << "==================================" << endl << "   Childrens Books   " << endl << "==================================" << endl;
+    cout << " Code ";
+    cout << setw(10);
+    cout << " Title ";
+    cout << setw(5);
+    cout << " Age ";
+    cout << " Available ";
+    cout << " Rented ";
+    cout << endl;
+    cout << "---------------------------------" << endl;
+ //   print(library[0]);
+    cout << "==================================" << endl << "   Computer Books   " << endl << "==================================" << endl;
+    cout << " Code ";
+    cout << setw(10);
+    cout << " Title ";
+    cout << setw(5);
+    cout << " Age ";
+    cout << " Available ";
+    cout << " Rented ";
+    cout << endl;
+    cout << "---------------------------------" << endl;
+ //   print(library[1]);
+    cout << "==================================" << endl << "   Novel Books   " << endl << "==================================" << endl;
+    cout << " Code ";
+    cout << setw(10);
+    cout << " Title ";
+    cout << setw(5);
+    cout << " Age ";
+    cout << " Available ";
+    cout << " Rented ";
+    cout << endl;
+    cout << "---------------------------------" << endl;
+  //  print(library[2]);
 }
 void print(BookNode* head)
 {
