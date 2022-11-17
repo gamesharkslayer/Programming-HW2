@@ -13,6 +13,7 @@ using namespace std;
 void processdata(ChildrenBook temp, ComputerBook computer, Novel noveltemp);
 void processperson(Teacher techertemp, Student studenttemp);
 void insert(BookNode** head_ref, BookNode* node);
+void insertperson(BookNode** head_ref, BookNode* node)
 void print(BookNode* head);
 void search();
 int main()
@@ -137,7 +138,7 @@ void processperson(Teacher teachtemp, Student studenttemp)
                 teachtemp.setcount(numberrented);
                 PersonNode* node = new PersonNode;
                 node->person = teachtemp;
-                insert();
+                insert(&person[0], node);
             }
             if (numberrented == 2)
             {
