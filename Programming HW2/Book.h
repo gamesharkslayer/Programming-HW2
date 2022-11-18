@@ -16,7 +16,7 @@ public:
     void setrented(int rented);
     int getrented();
   //  void addbook(int code);
-    void removebook(BookNode* head, int code);
+    //void removebook(BookNode* head, int code);
  
 private:
     int code;
@@ -133,6 +133,7 @@ int Book::getrented()
     return rented;
 }
 //error
+/*
 void Book::removebook(BookNode* head, int code)
 {
 
@@ -152,7 +153,7 @@ void Book::removebook(BookNode* head, int code)
     }
 
 }
-
+*/
 void ChildrenBook::setage(int age)
 {
     this->age = age;

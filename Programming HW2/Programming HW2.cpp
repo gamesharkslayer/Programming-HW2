@@ -15,7 +15,7 @@ void processperson(Teacher techertemp, Student studenttemp);
 void insert(BookNode** head_ref, BookNode* node);
 void insertperson(PersonNode** head_ref, PersonNode* node);
 void print(BookNode* head);
-void search();
+void search(BookNode* head, int code, string title);
 void showallbooks();
 int main()
 {
@@ -39,6 +39,31 @@ int main()
     while (!(choice == 6))
     {
         cin >> choice;
+        if (choice == 1)
+        {
+            int code;
+            string searchtitle;
+            cout << "Enter Code: ";
+            cin >> code;
+            cout << endl << "Enter Title: ";
+            cin >> searchtitle;
+            if ((code > 1000) && (code < 2000))
+            {
+                search(library[0], code, searchtitle);
+            }
+            else if ((code > 2000) && (code < 3000))
+            {
+                search(library[1], code, searchtitle);
+            }
+            else if ((code > 3000) && (code < 4000))
+            {
+                search(library[2], code, searchtitle);
+            }
+            else
+            {
+                cout << "Please Enter a valid code" << endl;
+            }
+        }
         if (choice == 5)
         {
             cout << "==================================" << endl << "   Childrens Books   " << endl << "==================================" << endl;
@@ -223,6 +248,8 @@ void insertperson(PersonNode** head_ref, PersonNode* node)
         current->link = node;
     }
 }
+
+//error
 void showallbook()
 {
     cout << "==================================" << endl << "   Childrens Books   " << endl << "==================================" << endl;
@@ -264,4 +291,37 @@ void print(BookNode* head)
     for (BookNode* ptr = head; ptr != NULL; ptr = ptr->link)
         cout << ptr->book.getcode() << "     " << ptr->book.gettitle() << "     " << ptr->book.getavailable() << " " << ptr->book.getrented() << endl;
     cout << endl;
+}
+void search(BookNode* head, int code,string title)
+{
+    BookNode* current = head; // Initialize current
+    while (current != NULL) {
+        if ((current->book.getcode() == code) && (current->book.gettitle() == title))
+        {
+            cout << current->book.gettitle() << "exists" << endl;
+            cout << "catagory:";
+            if ((current->book.getcode() > 1000) && (current->book.getcode() > 2000))
+            {
+                cout << "Childrens Book" << endl;
+                cout << "available: " << current->book.getavailable() << "Rented:" << current->book.getrented();
+            }
+            else if ((current->book.getcode() > 2000) && (current->book.getcode() > 3000))
+            {
+                cout << "Computer Book" << endl;
+                cout << "available: " << current->book.getavailable() << "Rented:" << current->book.getrented();
+            }
+            else if ((current->book.getcode() >32000) && (current->book.getcode() > 4000))
+            {
+                cout << "Novel" << endl;
+                cout << "available: " << current->book.getavailable() << "Rented:" << current->book.getrented();
+            }
+        }
+        else
+        {
+            cout << "Book not found please try again";
+            break;
+        }
+        current = current->link;
+    }
+
 }
