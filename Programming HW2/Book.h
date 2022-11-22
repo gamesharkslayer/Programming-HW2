@@ -1,5 +1,7 @@
 using namespace std;
 
+typedef struct BookNode BookNode;
+
 class Book
 {
     // complete the class
@@ -16,7 +18,7 @@ public:
     void setrented(int rented);
     int getrented();
   //  void addbook(int code);
-    //void removebook(BookNode* head, int code);
+    void removebook(BookNode* head, int code);
  
 private:
     int code;
@@ -24,6 +26,13 @@ private:
     int available;
     int rented;
 };
+
+struct BookNode
+{
+    Book book;
+    BookNode* link;
+};
+BookNode* library[3];
 
 class ChildrenBook : public Book
 {
@@ -78,14 +87,14 @@ private:
     int publish_date;
 };
 
-
+/*
 struct BookNode
 {
     Book book;
     BookNode* link;
 };
 BookNode* library[3];
-
+*/
 Book::Book()
 {
     this->code = 0000000;
@@ -132,8 +141,7 @@ int Book::getrented()
 {
     return rented;
 }
-//error
-/*
+
 void Book::removebook(BookNode* head, int code)
 {
 
@@ -145,6 +153,8 @@ void Book::removebook(BookNode* head, int code)
         {
             newava--;
             newrent++;
+            
+
             current->book.setavailable(newava);
             current->book.setrented(newrent);
         }
@@ -153,7 +163,7 @@ void Book::removebook(BookNode* head, int code)
     }
 
 }
-*/
+
 void ChildrenBook::setage(int age)
 {
     this->age = age;
