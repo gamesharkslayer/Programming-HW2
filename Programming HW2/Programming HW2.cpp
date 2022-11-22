@@ -15,8 +15,10 @@ void processperson(Teacher techertemp, Student studenttemp);
 void insert(BookNode** head_ref, BookNode* node);
 void insertperson(PersonNode** head_ref, PersonNode* node);
 void print(BookNode* head);
+void printperson(PersonNode* head);
 void search(BookNode* head, int code, string title);
 void showallbooks();
+void personsearch(PersonNode* head, int ID, string name);
 int main()
 {
     //Book linked list start
@@ -26,8 +28,11 @@ int main()
     Teacher techertemp;
     Student studenttemp;
     processdata(temp,computer,noveltemp);
+    //incrementing rented more times
+    processperson(techertemp, studenttemp);
   //  print(library[1]);
-    
+   // printperson(person[0]);
+    /*
     cout << "--------------------------" << endl << "         Menu" << endl << "--------------------------" << endl;
     cout << "  1. Search a book" << endl;
     cout << "  2. Rent a book" << endl;
@@ -35,9 +40,17 @@ int main()
     cout << "  4. Show my information" << endl;
     cout << "  5. Show all books" << endl;
     cout << "  6. Exit" << endl;
+    */
     int choice = 0;
     while (!(choice == 6))
     {
+        cout << "--------------------------" << endl << "         Menu" << endl << "--------------------------" << endl;
+        cout << "  1. Search a book" << endl;
+        cout << "  2. Rent a book" << endl;
+        cout << "  3. Return a book" << endl;
+        cout << "  4. Show my information" << endl;
+        cout << "  5. Show all books" << endl;
+        cout << "  6. Exit" << endl;
         cin >> choice;
         if (choice == 1)
         {
@@ -74,47 +87,28 @@ int main()
         }
         else if (choice == 4)
         {
-
+            int tempid;
+            string tempname;
+            cout << "Enter your ID:";
+            cin >> tempid;
+            cout << endl << "Enter your name:";
+            cin >> tempname;
+            if ((tempid < 100) && (tempid > 0))
+            {
+                personsearch(person[0], tempid, tempname);
+            }
+            else if((tempid > 100) && (tempid < 300))
+            {
+                personsearch(person[1], tempid, tempname);
+            }
         }
         else if (choice == 5)
         {
-            cout << "==================================" << endl << "   Childrens Books   " << endl << "==================================" << endl;
-            cout << " Code ";
-            cout << setw(10);
-            cout << " Title ";
-            cout << setw(5);
-            cout << " Age ";
-            cout << " Available ";
-            cout << " Rented ";
-            cout << endl;
-            cout << "---------------------------------" << endl;
-            print(library[0]);
-            cout << "==================================" << endl << "   Computer Books   " << endl << "==================================" << endl;
-            cout << " Code ";
-            cout << setw(10);
-            cout << " Title ";
-            cout << setw(5);
-            cout << " Age ";
-            cout << " Available ";
-            cout << " Rented ";
-            cout << endl;
-            cout << "---------------------------------" << endl;
-             print(library[1]);
-            cout << "==================================" << endl << "   Novel Books   " << endl << "==================================" << endl;
-            cout << " Code ";
-            cout << setw(10);
-            cout << " Title ";
-            cout << setw(5);
-            cout << " Age ";
-            cout << " Available ";
-            cout << " Rented ";
-            cout << endl;
-            cout << "---------------------------------" << endl;
-             print(library[2]);
+            showallbooks();
         }
-        else if (choice == 6)
+        else
         {
-            return 0;
+
         }
     }
     
@@ -179,7 +173,8 @@ void processdata(ChildrenBook temp, ComputerBook computer, Novel noveltemp)
 void processperson(Teacher teachtemp, Student studenttemp)
 {
     ifstream infile;
-    infile.open("book.txt");
+    Book computerbook, novel, children;
+    infile.open("person.txt");
     if (infile.fail()) { // checks for file opening
         cout << "Input file opening filed." << endl;
         exit(1);
@@ -201,8 +196,20 @@ void processperson(Teacher teachtemp, Student studenttemp)
                 PersonNode* node = new PersonNode;
                 node->person = teachtemp;
                 insertperson(&person[0], node);
+                if ((code1 > 1000) && (code1 < 2000)) 
+                {
+                     children.removebook(library[0],code1);
+                }
+                else if ((code1 > 2000) && (code1 < 3000))
+                {
+                    computerbook.removebook(library[1], code1);
+                }
+                else if ((code1 > 3000) && (code1 < 4000))
+                {
+                    novel.removebook(library[2], code1);
+                }
             }
-            if (numberrented == 2)
+            else if (numberrented == 2)
             {
                 infile >> code1 >> code2;
                 teachtemp.setname(name);
@@ -211,12 +218,94 @@ void processperson(Teacher teachtemp, Student studenttemp)
                 PersonNode* node = new PersonNode;
                 node->person = teachtemp;
                 insertperson(&person[0], node);
-                //teachtemp.removebook(library[])
+                if ((code1 > 1000) && (code1 < 2000))
+                {
+                    children.removebook(library[0], code1);
+                }
+                else if ((code1 > 2000) && (code1 < 3000))
+                {
+                    computerbook.removebook(library[1], code1);
+                }
+                else if ((code1 > 3000) && (code1 < 4000))
+                {
+                    novel.removebook(library[2], code1);
+                }
+                //code 2
+                if ((code2 > 1000) && (code2 < 2000))
+                {
+                    children.removebook(library[0], code2);
+                }
+                else if ((code2 > 2000) && (code2 < 3000))
+                {
+                    computerbook.removebook(library[1], code2);
+                }
+                else if ((code2 > 3000) && (code2 < 4000))
+                {
+                    novel.removebook(library[2], code2);
+                }
             }
         }
         else if ((id > 100) && (id < 300))
         {
-
+            infile >> name >> numberrented;
+            if (numberrented == 1)
+            {
+                infile >> code1;
+                studenttemp.setname(name);
+                studenttemp.setid(id);
+                studenttemp.setcount(numberrented);
+                PersonNode* node = new PersonNode;
+                node->person = studenttemp;
+                insertperson(&person[1], node);
+                if ((code1 > 1000) && (code1 < 2000))
+                {
+                    children.removebook(library[0], code1);
+                }
+                else if ((code1 > 2000) && (code1 < 3000))
+                {
+                    computerbook.removebook(library[1], code1);
+                }
+                else if ((code1 > 3000) && (code1 < 4000))
+                {
+                    novel.removebook(library[2], code1);
+                }
+            }
+            else if (numberrented == 2)
+            {
+                infile >> code1 >> code2;
+                studenttemp.setname(name);
+                studenttemp.setid(id);
+                studenttemp.setcount(numberrented);
+                PersonNode* node = new PersonNode;
+                node->person = studenttemp;
+                insertperson(&person[1], node);
+                if ((code1 > 1000) && (code1 < 2000))
+                {
+                    children.removebook(library[0], code1);
+                }
+                else if ((code1 > 2000) && (code1 < 3000))
+                {
+                    computerbook.removebook(library[1], code1);
+                }
+                else if ((code1 > 3000) && (code1 < 4000))
+                {
+                    novel.removebook(library[2], code1);
+                }
+                //code 2
+                if ((code2 > 1000) && (code2 < 2000))
+                {
+                    children.removebook(library[0], code2);
+                }
+                else if ((code2 > 2000) && (code2 < 3000))
+                {
+                    computerbook.removebook(library[1], code2);
+                }
+                else if ((code2 > 3000) && (code2 < 4000))
+                {
+                    novel.removebook(library[2], code2);
+                }
+            
+            }
         }
     }
 }
@@ -265,8 +354,7 @@ void insertperson(PersonNode** head_ref, PersonNode* node)
     }
 }
 
-//error
-void showallbook()
+void showallbooks()
 {
     cout << "==================================" << endl << "   Childrens Books   " << endl << "==================================" << endl;
     cout << " Code ";
@@ -278,7 +366,7 @@ void showallbook()
     cout << " Rented ";
     cout << endl;
     cout << "---------------------------------" << endl;
- //   print(library[0]);
+    print(library[0]);
     cout << "==================================" << endl << "   Computer Books   " << endl << "==================================" << endl;
     cout << " Code ";
     cout << setw(10);
@@ -289,7 +377,7 @@ void showallbook()
     cout << " Rented ";
     cout << endl;
     cout << "---------------------------------" << endl;
- //   print(library[1]);
+    print(library[1]);
     cout << "==================================" << endl << "   Novel Books   " << endl << "==================================" << endl;
     cout << " Code ";
     cout << setw(10);
@@ -300,12 +388,19 @@ void showallbook()
     cout << " Rented ";
     cout << endl;
     cout << "---------------------------------" << endl;
-  //  print(library[2]);
+    print(library[2]);
 }
 void print(BookNode* head)
 {
+    //getting subclass methods
     for (BookNode* ptr = head; ptr != NULL; ptr = ptr->link)
         cout << ptr->book.getcode() << "     " << ptr->book.gettitle() << "     " << ptr->book.getavailable() << " " << ptr->book.getrented() << endl;
+    cout << endl;
+}
+void printperson(PersonNode* head)
+{
+    for (PersonNode* ptr = head; ptr != NULL; ptr = ptr->link)
+        cout << ptr->person.getid() << "     " << ptr->person.getname() ;
     cout << endl;
 }
 void search(BookNode* head, int code,string title)
@@ -340,4 +435,17 @@ void search(BookNode* head, int code,string title)
         current = current->link;
     }
 
+}
+//error
+void personsearch(PersonNode* head,int ID,string name)
+{
+    PersonNode* current = head; // Initialize current
+    while (current != NULL)
+    {
+        if ((current->person.getname() == name) && (current->person.getid() == ID))
+        {
+            cout << "you have rented " << current->person.getcount() << " books";
+        }
+        current = current->link;
+    }
 }
