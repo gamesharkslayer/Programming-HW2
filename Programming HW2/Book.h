@@ -17,8 +17,10 @@ public:
     int getavailable();
     void setrented(int rented);
     int getrented();
-  //  void addbook(int code);
+    void addbook(BookNode* head, int code);
     void removebook(BookNode* head, int code);
+    virtual string getpublisher() 
+    { return title; };
  
 private:
     int code;
@@ -65,7 +67,7 @@ public:
         this->publisher = publisher;
     }
     void setpublisher(string publisher);
-    string getpublisher();
+    virtual string getpublisher();
 private:
     string publisher;
 };
@@ -163,7 +165,25 @@ void Book::removebook(BookNode* head, int code)
     }
 
 }
+void Book::addbook(BookNode* head, int code)
+{
+    BookNode* current = head; // Initialize current
+    int newava = current->book.getavailable();
+    int newrent = current->book.getrented();
+    while (current != NULL) {
+        if (current->book.getcode() == code)
+        {
+            newava++;
+            newrent--;
 
+
+            current->book.setavailable(newava);
+            current->book.setrented(newrent);
+        }
+
+        current = current->link;
+    }
+}
 void ChildrenBook::setage(int age)
 {
     this->age = age;

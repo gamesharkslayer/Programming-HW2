@@ -19,6 +19,7 @@ void printperson(PersonNode* head);
 void search(BookNode* head, int code, string title);
 void showallbooks();
 void personsearch(PersonNode* head, int ID, string name);
+void printcomputer(BookNode* head);
 int main()
 {
     //Book linked list start
@@ -28,19 +29,9 @@ int main()
     Teacher techertemp;
     Student studenttemp;
     processdata(temp,computer,noveltemp);
-    //incrementing rented more times
+
     processperson(techertemp, studenttemp);
-  //  print(library[1]);
-   // printperson(person[0]);
-    /*
-    cout << "--------------------------" << endl << "         Menu" << endl << "--------------------------" << endl;
-    cout << "  1. Search a book" << endl;
-    cout << "  2. Rent a book" << endl;
-    cout << "  3. Return a book" << endl;
-    cout << "  4. Show my information" << endl;
-    cout << "  5. Show all books" << endl;
-    cout << "  6. Exit" << endl;
-    */
+ 
     int choice = 0;
     while (!(choice == 6))
     {
@@ -79,7 +70,20 @@ int main()
         }
         else if (choice == 2)
         {
-
+            int tempid;
+            int tempcode;
+            cout << "Enter your ID: ";
+            cin >> tempid;
+            cout << "Enter the book code to return : ";
+            cin >> tempcode;
+            if ((tempid < 100) && (tempid > 0))
+            {
+                personsearch(person[0], tempid, tempname);
+            }
+            else if ((tempid > 100) && (tempid < 300))
+            {
+                personsearch(person[1], tempid, tempname);
+            }
         }
         else if (choice == 3)
         {
@@ -196,6 +200,7 @@ void processperson(Teacher teachtemp, Student studenttemp)
                 PersonNode* node = new PersonNode;
                 node->person = teachtemp;
                 insertperson(&person[0], node);
+                teachtemp.setcode1(code1);
                 if ((code1 > 1000) && (code1 < 2000)) 
                 {
                      children.removebook(library[0],code1);
@@ -218,6 +223,8 @@ void processperson(Teacher teachtemp, Student studenttemp)
                 PersonNode* node = new PersonNode;
                 node->person = teachtemp;
                 insertperson(&person[0], node);
+                teachtemp.setcode1(code1);
+                teachtemp.setcode2(code2);
                 if ((code1 > 1000) && (code1 < 2000))
                 {
                     children.removebook(library[0], code1);
@@ -256,6 +263,7 @@ void processperson(Teacher teachtemp, Student studenttemp)
                 studenttemp.setcount(numberrented);
                 PersonNode* node = new PersonNode;
                 node->person = studenttemp;
+                studenttemp.setcode1(code1);
                 insertperson(&person[1], node);
                 if ((code1 > 1000) && (code1 < 2000))
                 {
@@ -276,6 +284,8 @@ void processperson(Teacher teachtemp, Student studenttemp)
                 studenttemp.setname(name);
                 studenttemp.setid(id);
                 studenttemp.setcount(numberrented);
+                studenttemp.setcode1(code1);
+                studenttemp.setcode2(code2);
                 PersonNode* node = new PersonNode;
                 node->person = studenttemp;
                 insertperson(&person[1], node);
@@ -372,18 +382,18 @@ void showallbooks()
     cout << setw(10);
     cout << " Title ";
     cout << setw(5);
-    cout << " Age ";
+    cout << " Publisher ";
     cout << " Available ";
     cout << " Rented ";
     cout << endl;
     cout << "---------------------------------" << endl;
-    print(library[1]);
+    printcomputer(library[1]);
     cout << "==================================" << endl << "   Novel Books   " << endl << "==================================" << endl;
     cout << " Code ";
     cout << setw(10);
     cout << " Title ";
     cout << setw(5);
-    cout << " Age ";
+    cout << " Year ";
     cout << " Available ";
     cout << " Rented ";
     cout << endl;
@@ -395,6 +405,13 @@ void print(BookNode* head)
     //getting subclass methods
     for (BookNode* ptr = head; ptr != NULL; ptr = ptr->link)
         cout << ptr->book.getcode() << "     " << ptr->book.gettitle() << "     " << ptr->book.getavailable() << " " << ptr->book.getrented() << endl;
+    cout << endl;
+}
+void printcomputer(BookNode* head)
+{
+    //getting subclass methods
+    for (BookNode* ptr = head; ptr != NULL; ptr = ptr->link)
+        cout << ptr->book.getcode() << "     " << ptr->book.gettitle() << "     " << ptr->book.getpublisher() << "    " << ptr->book.getavailable() << " " << ptr->book.getrented() << endl;
     cout << endl;
 }
 void printperson(PersonNode* head)
@@ -436,7 +453,7 @@ void search(BookNode* head, int code,string title)
     }
 
 }
-//error
+
 void personsearch(PersonNode* head,int ID,string name)
 {
     PersonNode* current = head; // Initialize current
@@ -445,6 +462,20 @@ void personsearch(PersonNode* head,int ID,string name)
         if ((current->person.getname() == name) && (current->person.getid() == ID))
         {
             cout << "you have rented " << current->person.getcount() << " books";
+        }
+        current = current->link;
+    }
+}
+void personadd(PersonNode* head, int ID, int code, BookNode* library)
+{
+   
+    PersonNode* current = head; // Initialize current
+    cout << "You have rented " << current->person.getcount() << " Book.";
+    while (current != NULL)
+    {
+        if (current->person.getid() == ID)
+        {
+            if(current->person.getcode1())
         }
         current = current->link;
     }
