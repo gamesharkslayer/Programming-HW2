@@ -64,7 +64,19 @@ int main()
                 cout << "Please Enter a valid code" << endl;
             }
         }
-        if (choice == 5)
+        else if (choice == 2)
+        {
+
+        }
+        else if (choice == 3)
+        {
+
+        }
+        else if (choice == 4)
+        {
+
+        }
+        else if (choice == 5)
         {
             cout << "==================================" << endl << "   Childrens Books   " << endl << "==================================" << endl;
             cout << " Code ";
@@ -99,6 +111,10 @@ int main()
             cout << endl;
             cout << "---------------------------------" << endl;
              print(library[2]);
+        }
+        else if (choice == 6)
+        {
+            return 0;
         }
     }
     
