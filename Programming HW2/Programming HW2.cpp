@@ -407,18 +407,20 @@ void print(BookNode* head)
         cout << ptr->book.getcode() << "     " << ptr->book.gettitle() << "     " << ptr->book.getavailable() << " " << ptr->book.getrented() << endl;
     cout << endl;
 }
-void printcomputer(BookNode* head)
+void printcomputer(BookNode** head)
 {
     //getting subclass methods
-
-    ComputerBook* subhead = new ComputerBook;
-    head->book = subhead;
+    ComputerBook* p = new ComputerBook;
+    p = *head;
+    
     for (BookNode* ptr = head; ptr != NULL; ptr = ptr->link)
     {
-        
-        cout << ptr->book.getcode() << "     " << ptr->book.gettitle() << "     " << ptr->book.getpublisher() << "    " << ptr->book.getavailable() << " " << ptr->book.getrented() << endl;
+       
+        cout << ptr->book.getcode() << "     " << ptr->book.gettitle() << "     " << p->getpublisher() << "    " << ptr->book.getavailable() << " " << ptr->book.getrented() << endl;
     }
         cout << endl;
+     
+    
 }
 void printperson(PersonNode* head)
 {

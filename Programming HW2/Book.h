@@ -19,11 +19,7 @@ public:
     int getrented();
     void addbook(BookNode* head, int code);
     void removebook(BookNode* head, int code);
-  
-    virtual string getpublisher() 
-    {  
-        return "";
-    };
+    //virtual string getpublisher() { return"super"; };
 
 private:
     int code;
