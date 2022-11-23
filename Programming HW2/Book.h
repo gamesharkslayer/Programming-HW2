@@ -19,9 +19,12 @@ public:
     int getrented();
     void addbook(BookNode* head, int code);
     void removebook(BookNode* head, int code);
+  
     virtual string getpublisher() 
-    { return title; };
- 
+    {  
+        return "";
+    };
+
 private:
     int code;
     string title;
@@ -66,8 +69,15 @@ public:
     {
         this->publisher = publisher;
     }
+    ComputerBook(const ComputerBook& p)
+    {
+        this->publisher = p.publisher;
+    }
     void setpublisher(string publisher);
-    virtual string getpublisher();
+    string getpublisher()
+    {
+        return publisher;
+    }
 private:
     string publisher;
 };
@@ -131,6 +141,7 @@ void Book::setavailable(int available)
 {
     this->available = available;
 }
+
 int Book::getavailable()
 {
     return available;
@@ -196,10 +207,12 @@ void ComputerBook::setpublisher(string publisher)
 {
     this->publisher = publisher;
 }
+/*
 string ComputerBook::getpublisher()
 {
     return publisher;
 }
+*/
 void Novel::setdate(int date)
 {
     this->publish_date = date;

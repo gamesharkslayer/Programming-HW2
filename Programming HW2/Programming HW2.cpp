@@ -78,11 +78,11 @@ int main()
             cin >> tempcode;
             if ((tempid < 100) && (tempid > 0))
             {
-                personsearch(person[0], tempid, tempname);
+               // personsearch(person[0], tempid, tempname);
             }
             else if ((tempid > 100) && (tempid < 300))
             {
-                personsearch(person[1], tempid, tempname);
+                //personsearch(person[1], tempid, tempname);
             }
         }
         else if (choice == 3)
@@ -112,7 +112,7 @@ int main()
         }
         else
         {
-
+            cout << "Please enter a valid choice" << endl;
         }
     }
     
@@ -410,9 +410,15 @@ void print(BookNode* head)
 void printcomputer(BookNode* head)
 {
     //getting subclass methods
+
+    ComputerBook* subhead = new ComputerBook;
+    head->book = subhead;
     for (BookNode* ptr = head; ptr != NULL; ptr = ptr->link)
+    {
+        
         cout << ptr->book.getcode() << "     " << ptr->book.gettitle() << "     " << ptr->book.getpublisher() << "    " << ptr->book.getavailable() << " " << ptr->book.getrented() << endl;
-    cout << endl;
+    }
+        cout << endl;
 }
 void printperson(PersonNode* head)
 {
@@ -475,7 +481,7 @@ void personadd(PersonNode* head, int ID, int code, BookNode* library)
     {
         if (current->person.getid() == ID)
         {
-            if(current->person.getcode1())
+           // if(current->person.getcode1())
         }
         current = current->link;
     }
