@@ -19,7 +19,7 @@ public:
     int getrented();
     void addbook(BookNode* head, int code);
     void removebook(BookNode* head, int code);
-    //virtual string getpublisher() { return"super"; };
+    virtual string getpublisher() { return"super"; };
 
 private:
     int code;
@@ -27,13 +27,6 @@ private:
     int available;
     int rented;
 };
-
-struct BookNode
-{
-    Book book;
-    BookNode* link;
-};
-BookNode* library[3];
 
 class ChildrenBook : public Book
 {
@@ -94,15 +87,13 @@ public:
 private:
     int publish_date;
 };
-
-/*
 struct BookNode
 {
-    Book book;
+    Book* book;
     BookNode* link;
 };
 BookNode* library[3];
-*/
+
 Book::Book()
 {
     this->code = 0000000;
@@ -155,17 +146,17 @@ void Book::removebook(BookNode* head, int code)
 {
 
     BookNode* current = head; // Initialize current
-    int newava = current->book.getavailable();
-    int newrent = current->book.getrented();
+    int newava = current->book->getavailable();
+    int newrent = current->book->getrented();
     while (current != NULL) {
-        if (current->book.getcode() == code)
+        if (current->book->getcode() == code)
         {
             newava--;
             newrent++;
             
 
-            current->book.setavailable(newava);
-            current->book.setrented(newrent);
+            current->book->setavailable(newava);
+            current->book->setrented(newrent);
         }
 
         current = current->link;
@@ -175,17 +166,17 @@ void Book::removebook(BookNode* head, int code)
 void Book::addbook(BookNode* head, int code)
 {
     BookNode* current = head; // Initialize current
-    int newava = current->book.getavailable();
-    int newrent = current->book.getrented();
+    int newava = current->book->getavailable();
+    int newrent = current->book->getrented();
     while (current != NULL) {
-        if (current->book.getcode() == code)
+        if (current->book->getcode() == code)
         {
             newava++;
             newrent--;
 
 
-            current->book.setavailable(newava);
-            current->book.setrented(newrent);
+            current->book->setavailable(newava);
+            current->book->setrented(newrent);
         }
 
         current = current->link;

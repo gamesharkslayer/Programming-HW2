@@ -85,7 +85,7 @@ private:
 
 struct PersonNode
 {
-    Person person;
+    Person *person;
     PersonNode* link;
 };
 PersonNode* person[2];
