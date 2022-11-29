@@ -14,7 +14,9 @@ public:
     void setcount(int count);
     virtual int getcode1() { return 0; };
     virtual int getcode2() { return 0; };
-    virtual int getcode3() { return 0; };   
+    virtual int getcode3() { return 0; };
+    virtual void setcode1(int code) { cout << "super"; };
+    virtual void setcode2(int code) { cout << "super"; };
 private:
     int id;
     string name;

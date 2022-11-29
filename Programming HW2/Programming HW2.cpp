@@ -53,6 +53,8 @@ void personsearch(PersonNode* head, int ID, string name);
 void printchild(BookNode* head);
 void printnovel(BookNode* head);
 void searchbook(BookNode* head, int code);
+void personadd(PersonNode* head, int ID, int code, BookNode* library);
+void personreturn(PersonNode* head, int ID, int code, BookNode* library);
 int main()
 {
     //Book linked list start
@@ -108,20 +110,77 @@ int main()
             int tempcode;
             cout << "Enter your ID: ";
             cin >> tempid;
-            cout << "Enter the book code to return : ";
+            cout << "Enter the book code to add : ";
             cin >> tempcode;
             if ((tempid < 100) && (tempid > 0))
             {
-               // personsearch(person[0], tempid, tempname);
+                if ((tempcode > 1000) && (tempcode < 2000))
+                {
+                    personadd(person[0], tempid, tempcode, library[0]);
+                }
+                else if ((tempcode > 2000) && (tempcode < 3000))
+                {
+                    personadd(person[0], tempid, tempcode, library[1]);
+                }
+                else if ((tempcode > 3000) && (tempcode < 4000))
+                {
+                    personadd(person[0], tempid, tempcode, library[2]);
+                }
             }
             else if ((tempid > 100) && (tempid < 300))
             {
-                //personsearch(person[1], tempid, tempname);
+                if ((tempcode > 1000) && (tempcode < 2000))
+                {
+                    personadd(person[1], tempid, tempcode, library[0]);
+                }
+                else if ((tempcode > 2000) && (tempcode < 3000))
+                {
+                    personadd(person[1], tempid, tempcode, library[1]);
+                }
+                else if ((tempcode > 3000) && (tempcode < 4000))
+                {
+                    personadd(person[1], tempid, tempcode, library[2]);
+                }
             }
         }
         else if (choice == 3)
         {
-
+            int tempid;
+            int tempcode;
+            cout << "Enter your ID: ";
+            cin >> tempid;
+            cout << "Enter the book code to return : ";
+            cin >> tempcode;
+            if ((tempid < 100) && (tempid > 0))
+            {
+                if ((tempcode > 1000) && (tempcode < 2000))
+                {
+                    personreturn(person[0], tempid, tempcode, library[0]);
+                }
+                else if ((tempcode > 2000) && (tempcode < 3000))
+                {
+                    personreturn(person[0], tempid, tempcode, library[1]);
+                }
+                else if ((tempcode > 3000) && (tempcode < 4000))
+                {
+                    personreturn(person[0], tempid, tempcode, library[2]);
+                }
+            }
+            else if ((tempid > 100) && (tempid < 300))
+            {
+                if ((tempcode > 1000) && (tempcode < 2000))
+                {
+                    personreturn(person[1], tempid, tempcode, library[0]);
+                }
+                else if ((tempcode > 2000) && (tempcode < 3000))
+                {
+                    personreturn(person[1], tempid, tempcode, library[1]);
+                }
+                else if ((tempcode > 3000) && (tempcode < 4000))
+                {
+                    personreturn(person[1], tempid, tempcode, library[2]);
+                }
+            }
         }
         else if (choice == 4)
         {
@@ -605,7 +664,7 @@ void searchbook(BookNode* head, int code)
                
                 cout << "* " << current->book->gettitle() << " Publisher:" << current->book->getpublisher() << endl;
             }
-            else if ((current->book->getcode() > 32000) && (current->book->getcode() <= 4000))
+            else if ((current->book->getcode() > 3000) && (current->book->getcode() <= 4000))
             {
               
                 cout << "* " << current->book->gettitle() << " Year:" << current->book->getdate() << endl;
@@ -621,14 +680,79 @@ void searchbook(BookNode* head, int code)
 void personadd(PersonNode* head, int ID, int code, BookNode* library)
 {
    
-    PersonNode* current = head; // Initialize current
-    cout << "You have rented " << current->person->getcount() << " Book.";
-    while (current != NULL)
+    BookNode* current = library; // Initialize current
+    PersonNode* currentpers = head;
+   // cout << "You have rented " << currentpers->person->getcount() << " Book.";
+    cout << "getting";
+    while (currentpers != NULL)
     {
-        if (current->person->getid() == ID)
+        if (currentpers->person->getid() == ID)
         {
-           // if(current->person.getcode1())
+            if (currentpers->person->getcode1() == 0)
+            {
+                cout << "Book set";
+                current->book->removebook(current, code);
+                int count = currentpers->person->getcount();
+                count++;
+                currentpers->person->setcode1(code);
+            }
+            else if (currentpers->person->getcode2() == 0)
+            {
+                cout << "Book set";
+                current->book->removebook(current, code);
+               int count = currentpers->person->getcount();
+               count++;
+               currentpers->person->setcount(count);
+                currentpers->person->setcode2(code);
+            }
+         
         }
+        currentpers = currentpers->link;
+    }
+}
+void personreturn(PersonNode* head, int ID, int code, BookNode* library)
+{
+
+    BookNode* current = library; // Initialize current
+    PersonNode* currentpers = head;
+    // cout << "You have rented " << currentpers->person->getcount() << " Book.";
+    char choice;
+    cout << "getting";
+    while (currentpers != NULL && current != NULL)
+    {
+        if (currentpers->person->getid() == ID)
+        {
+            if (currentpers->person->getcode1() == code)
+            {
+                cout << "Do you want to return: " << current->book->gettitle() << " (y/n) " << endl;
+                if (choice == 'y')
+                {
+                    current->book->addbook(current, code);
+                    int count = currentpers->person->getcount();
+                    count--;
+                    currentpers->person->setcode1(0);
+                }
+                else if (choice == 'n')
+                {
+                    break;
+                }
+                else
+                {
+                    cout << "Please enter a valid choice\n";
+                }
+            }
+            else if (currentpers->person->getcode2() == code)
+            {
+                cout << "Do you want to return: " << current->book->gettitle() << " (y/n) " << endl;
+                current->book->addbook(current, code);
+                int count = currentpers->person->getcount();
+                count--;
+                currentpers->person->setcount(count);
+                currentpers->person->setcode2(0);
+            }
+
+        }
+        currentpers = currentpers->link;
         current = current->link;
     }
 }
