@@ -6,8 +6,13 @@ class Book
 {
     // complete the class
 public:
-
+    /*
+    * Default constructor for the book class
+    */
     Book();
+    /*
+    * Book constructor with code title available and rented
+    */
     Book(int code, string title, int available, int rented);
     void setcode(int code);
     int getcode();
@@ -20,6 +25,8 @@ public:
     void addbook(BookNode* head, int code);
     void removebook(BookNode* head, int code);
     virtual string getpublisher() { return"super"; };
+    virtual int getage() { return 0; };
+    virtual int getdate() { return 0; };
 
 private:
     int code;

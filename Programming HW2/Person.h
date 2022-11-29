@@ -12,6 +12,9 @@ public:
     void setname(string name);
     int getcount();
     void setcount(int count);
+    virtual int getcode1() { return 0; };
+    virtual int getcode2() { return 0; };
+    virtual int getcode3() { return 0; };   
 private:
     int id;
     string name;

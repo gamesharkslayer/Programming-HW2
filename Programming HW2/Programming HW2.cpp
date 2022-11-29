@@ -26,12 +26,33 @@ void insert(BookNode** head_ref, BookNode* node);
 * Inserts a person node into the person linked list
 */
 void insertperson(PersonNode** head_ref, PersonNode* node);
+/*
+* Prints out the books for the linked list
+*/
 void print(BookNode* head);
-void printperson(PersonNode* head);
-void search(BookNode* head, int code, string title);
-void showallbooks();
-void personsearch(PersonNode* head, int ID, string name);
+/*
+* Prints out the Computer books for the linked list
+*/
 void printcomputer(BookNode* head);
+/*
+* Prints out the Person for debugging
+*/
+void printperson(PersonNode* head);
+/*
+* Searches for a book using the id as well as title
+*/
+void search(BookNode* head, int code, string title);
+/*
+* Displays all books for debugging
+*/
+void showallbooks();
+/*
+* Searches for a person using id and name
+*/
+void personsearch(PersonNode* head, int ID, string name);
+void printchild(BookNode* head);
+void printnovel(BookNode* head);
+void searchbook(BookNode* head, int code);
 int main()
 {
     //Book linked list start
@@ -42,9 +63,9 @@ int main()
     Student* studenttemp = new Student;
     BookNode* node = new BookNode();
     processdata(temp,computer,noveltemp,node);
-
-    processperson(techertemp, studenttemp);
  
+    processperson(techertemp, studenttemp);
+    //printperson(person[1]);
     int choice = 0;
     while (!(choice == 6))
     {
@@ -394,7 +415,7 @@ void showallbooks()
     cout << " Rented ";
     cout << endl;
     cout << "---------------------------------" << endl;
-    print(library[0]);
+    printchild(library[0]);
     cout << "==================================" << endl << "   Computer Books   " << endl << "==================================" << endl;
     cout << " Code ";
     cout << setw(10);
@@ -416,7 +437,7 @@ void showallbooks()
     cout << " Rented ";
     cout << endl;
     cout << "---------------------------------" << endl;
-    print(library[2]);
+    printnovel(library[2]);
 }
 void print(BookNode* head)
 {
@@ -443,12 +464,26 @@ void printcomputer(BookNode* head)
 }
 void printchild(BookNode* head)
 {
+    for (BookNode* ptr = head; ptr != NULL; ptr = ptr->link)
+    {
 
+        cout << ptr->book->getcode() << "     " << ptr->book->gettitle() << "     " << ptr->book->getage() << "    " << ptr->book->getavailable() << " " << ptr->book->getrented() << endl;
+    }
+    cout << endl;
+}
+void printnovel(BookNode* head)
+{
+    for (BookNode* ptr = head; ptr != NULL; ptr = ptr->link)
+    {
+
+        cout << ptr->book->getcode() << "     " << ptr->book->gettitle() << "     " << ptr->book->getdate() << "    " << ptr->book->getavailable() << " " << ptr->book->getrented() << endl;
+    }
+    cout << endl;
 }
 void printperson(PersonNode* head)
 {
     for (PersonNode* ptr = head; ptr != NULL; ptr = ptr->link)
-        cout << ptr->person->getid() << "     " << ptr->person->getname() ;
+        cout << ptr->person->getid() << "     " << ptr->person->getname() << "  " << ptr->person->getcount() << "   " << ptr->person->getcode1() << "  " << ptr->person->getcode2() << endl;
     cout << endl;
 }
 void search(BookNode* head, int code,string title)
@@ -490,9 +525,95 @@ void personsearch(PersonNode* head,int ID,string name)
     PersonNode* current = head; // Initialize current
     while (current != NULL)
     {
-        if ((current->person->getname() == name) && (current->person->getid() == ID))
+        if (current->person->getname() == name && current->person->getid() == ID)
         {
-            cout << "you have rented " << current->person->getcount() << " books";
+            if (current->person->getcount() == 1)
+            {
+                
+                    cout << "you have rented " << current->person->getcount() << " books";
+                    if (current->person->getcode1() >= 1000 && current->person->getcode1() <= 2000)
+                    {
+                        searchbook(library[0], current->person->getcode1());
+                    }
+                    else if (current->person->getcode1() >= 2000 && current->person->getcode1() <= 3000)
+                    {
+                        searchbook(library[1], current->person->getcode1());
+                    }
+                    else if (current->person->getcode1() >= 3000 && current->person->getcode1() <= 4000)
+                    {
+                        searchbook(library[2], current->person->getcode1());
+                    }
+               
+            }
+            // not working
+            else if (current->person->getcount() == 2)
+            {
+               
+                    cout << "you have rented " << current->person->getcount() << " books";
+                    if (current->person->getcode1() >= 1000 && current->person->getcode1() <= 2000)
+                    {
+                        cout << "search1";
+                        searchbook(library[0], current->person->getcode1());
+                    }
+                    else if (current->person->getcode1() >= 2000 && current->person->getcode1() <= 3000)
+                    {
+                        cout << "search2";
+                        searchbook(library[1], current->person->getcode1());
+                    }
+                    else if (current->person->getcode1() >= 3000 && current->person->getcode1() <= 4000)
+                    {
+                        cout << "search3";
+                        searchbook(library[2], current->person->getcode1());
+                    }
+                    //search for code two
+                    cout << "Search for code 2";
+                    if (current->person->getcode2() >= 1000 && current->person->getcode2() <= 2000)
+                    {
+                        searchbook(library[0], current->person->getcode2());
+                    }
+                    else if (current->person->getcode2() >= 2000 && current->person->getcode2() <= 3000)
+                    {
+                        searchbook(library[1], current->person->getcode2());
+                    }
+                    else if (current->person->getcode2() >= 3000 && current->person->getcode2() <= 4000)
+                    {
+                        searchbook(library[2], current->person->getcode2());
+                    }
+               
+                
+            }
+        }
+        current = current->link;
+    }
+}
+void searchbook(BookNode* head, int code)
+{
+    cout << "Searching book";
+    BookNode* current = head; // Initialize current
+    //cout << endl;
+    while (current != NULL) {
+        if (current->book->getcode() == code)
+        {
+            cout << "Code found";
+            if ((current->book->getcode() >= 1000) && (current->book->getcode() <= 2000))
+            {
+               
+                cout << "* " << current->book->gettitle() << " Age:" << current->book->getage() << endl;
+            }
+            else if ((current->book->getcode() > 2000) && (current->book->getcode() <= 3000))
+            {
+               
+                cout << "* " << current->book->gettitle() << " Publisher:" << current->book->getpublisher() << endl;
+            }
+            else if ((current->book->getcode() > 32000) && (current->book->getcode() <= 4000))
+            {
+              
+                cout << "* " << current->book->gettitle() << " Year:" << current->book->getdate() << endl;
+            }
+        }
+        else
+        {
+            break;
         }
         current = current->link;
     }
