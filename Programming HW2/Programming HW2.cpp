@@ -604,28 +604,28 @@ void personsearch(PersonNode* head,int ID,string name)
                     }
                
             }
-            // not working
             else if (current->person->getcount() == 2)
             {
                
-                    cout << "you have rented " << current->person->getcount() << " books";
+                    //cout << "you have rented " << current->person->getcount() << " books" <<endl;
                     if (current->person->getcode1() >= 1000 && current->person->getcode1() <= 2000)
                     {
-                        cout << "search1";
+                        //cout << "search1";
+                        cout << current->person->getcode1();
                         searchbook(library[0], current->person->getcode1());
                     }
                     else if (current->person->getcode1() >= 2000 && current->person->getcode1() <= 3000)
                     {
-                        cout << "search2";
+                        //cout << "search2"<<endl;
                         searchbook(library[1], current->person->getcode1());
                     }
                     else if (current->person->getcode1() >= 3000 && current->person->getcode1() <= 4000)
                     {
-                        cout << "search3";
+                      //  cout << "search3"<<endl;
                         searchbook(library[2], current->person->getcode1());
                     }
                     //search for code two
-                    cout << "Search for code 2";
+                  //  cout << "Search for code 2";
                     if (current->person->getcode2() >= 1000 && current->person->getcode2() <= 2000)
                     {
                         searchbook(library[0], current->person->getcode2());
@@ -647,13 +647,14 @@ void personsearch(PersonNode* head,int ID,string name)
 }
 void searchbook(BookNode* head, int code)
 {
-    cout << "Searching book";
+   // cout << "Searching book:" << code;
     BookNode* current = head; // Initialize current
     //cout << endl;
     while (current != NULL) {
+        //cout << "current book: " << current->book->getcode() << endl;
         if (current->book->getcode() == code)
         {
-            cout << "Code found";
+           // cout << "Code found";
             if ((current->book->getcode() >= 1000) && (current->book->getcode() <= 2000))
             {
                
@@ -672,7 +673,7 @@ void searchbook(BookNode* head, int code)
         }
         else
         {
-            break;
+          //  break;
         }
         current = current->link;
     }
@@ -725,6 +726,7 @@ void personreturn(PersonNode* head, int ID, int code, BookNode* library)
             if (currentpers->person->getcode1() == code)
             {
                 cout << "Do you want to return: " << current->book->gettitle() << " (y/n) " << endl;
+                cin >> choice;
                 if (choice == 'y')
                 {
                     current->book->addbook(current, code);
