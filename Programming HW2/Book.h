@@ -70,7 +70,8 @@ public:
     //Copy constructor
     Book(const Book& b1)
     {
-
+        code = b1.code;
+        title = b1.title;
     }
 
     //Destructor
