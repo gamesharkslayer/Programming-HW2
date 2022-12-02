@@ -50,10 +50,25 @@ void showallbooks();
 * Searches for a person using id and name
 */
 void personsearch(PersonNode* head, int ID, string name);
+/*
+* Prints out the list of children books
+*/
 void printchild(BookNode* head);
+/*
+* Prints out the list of novels
+*/
 void printnovel(BookNode* head);
+/*
+* Searches for the given book code in the list
+*/
 void searchbook(BookNode* head, int code);
+/*
+* rents a book from the library
+*/
 void personadd(PersonNode* head, int ID, int code, BookNode* library);
+/*
+* Returns a book from the person to the library list
+*/
 void personreturn(PersonNode* head, int ID, int code, BookNode* library);
 int main()
 {
