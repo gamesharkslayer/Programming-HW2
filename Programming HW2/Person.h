@@ -29,6 +29,12 @@ public:
     virtual void setcode1(int code) { cout << "super"; };
     //Sets the second code
     virtual void setcode2(int code) { cout << "super"; };
+    //copy constructor
+    Person(const Person& p1)
+    {
+
+    }
+    //destructor
 private:
     // set id of person
     int id;

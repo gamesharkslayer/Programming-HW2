@@ -67,6 +67,14 @@ public:
     */
     virtual int getdate() { return 0; };
 
+    //Copy constructor
+    Book(const Book& b1)
+    {
+
+    }
+
+    //Destructor
+  
 private:
     // book code
     int code;

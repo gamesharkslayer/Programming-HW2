@@ -435,7 +435,7 @@ void processperson(Teacher* teachtemp, Student* studenttemp)
 void insert(BookNode** head_ref, BookNode* node)
 {
     BookNode* current;
-    /* Special case for the head end */
+    // if the node is the end
     if (*head_ref == NULL|| (*head_ref)->book->getcode() >= node->book->getcode())
     {
         node->link = *head_ref;
@@ -443,8 +443,7 @@ void insert(BookNode** head_ref, BookNode* node)
     }
     else 
     {
-        /* Locate the node before the
- point of insertion */
+      
         current = *head_ref;
         while (current->link != NULL && current->link->book->getcode() < node->book->getcode())
         {
@@ -457,7 +456,7 @@ void insert(BookNode** head_ref, BookNode* node)
 void insertperson(PersonNode** head_ref, PersonNode* node)
 {
     PersonNode* current;
-    /* Special case for the head end */
+    // if the node is the end
     if (*head_ref == NULL || (*head_ref)->person->getid() >= node->person->getid())
     {
         node->link = *head_ref;
@@ -465,8 +464,7 @@ void insertperson(PersonNode** head_ref, PersonNode* node)
     }
     else
     {
-        /* Locate the node before the
- point of insertion */
+       //locate node
         current = *head_ref;
         while (current->link != NULL && current->link->person->getid() < node->person->getid())
         {
