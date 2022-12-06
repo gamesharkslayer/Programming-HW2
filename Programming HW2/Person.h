@@ -32,7 +32,9 @@ public:
     //copy constructor
     Person(const Person& p1)
     {
-
+        this->id = p1.id;
+        this->name = p1.name;
+        this->count = p1.count;
     }
     //destructor
 private:
@@ -65,6 +67,7 @@ public:
         code[0] = code1;
         code[1] = code2;
     }
+    
     void setcode1(int code);
     void setcode2(int code);
     void setcode3(int code);
