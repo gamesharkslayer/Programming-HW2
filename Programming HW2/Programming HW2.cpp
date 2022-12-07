@@ -82,7 +82,7 @@ int main()
     processdata(temp,computer,noveltemp,node);
  
     processperson(techertemp, studenttemp);
-    //printperson(person[1]);
+    showallbooks();
     int choice = 0;
     while (!(choice == 6))
     {
@@ -96,67 +96,95 @@ int main()
         cin >> choice;
         if (choice == 1)
         {
-            int code;
-            string searchtitle;
-            cout << "Enter Code: ";
-            cin >> code;
-            cout << endl << "Enter Title: ";
-            cin >> searchtitle;
-            if ((code > 1000) && (code < 2000))
+            // Exception Handling
+            try
             {
-                search(library[0], code, searchtitle);
+                int code;
+                string searchtitle;
+                cout << "Enter Code: ";
+                cin >> code;
+                if (code < 0 || code > 4000)
+                {
+                    throw code;
+                }
+                cout << endl << "Enter Title: ";
+                cin >> searchtitle;
+                if ((code > 1000) && (code < 2000))
+                {
+                    search(library[0], code, searchtitle);
+                }
+                else if ((code > 2000) && (code < 3000))
+                {
+                    search(library[1], code, searchtitle);
+                }
+                else if ((code > 3000) && (code < 4000))
+                {
+                    search(library[2], code, searchtitle);
+                }
+                else
+                {
+                    cout << "Please Enter a valid code" << endl;
+                }
             }
-            else if ((code > 2000) && (code < 3000))
+            
+            catch (int codeExcep)
             {
-                search(library[1], code, searchtitle);
+                if (codeExcep < 0)
+                {
+                    cout << codeExcep << " is a negative number.\n";
+                }
+                else 
+                {
+                    cout << codeExcep << " is too high for a book id (ID can only go up to 4000).\n";
+                }
             }
-            else if ((code > 3000) && (code < 4000))
-            {
-                search(library[2], code, searchtitle);
-            }
-            else
-            {
-                cout << "Please Enter a valid code" << endl;
-            }
+            
         }
         else if (choice == 2)
         {
-            int tempid;
-            int tempcode;
-            cout << "Enter your ID: ";
-            cin >> tempid;
-            cout << "Enter the book code to add : ";
-            cin >> tempcode;
-            if ((tempid < 100) && (tempid > 0))
-            {
-                if ((tempcode > 1000) && (tempcode < 2000))
+            try{
+                int tempid;
+                int tempcode;
+                cout << "Enter your ID: ";
+                cin >> tempid;
+                cout << "Enter the book code to add : ";
+                cin >> tempcode;
+                if ((tempid < 100) && (tempid > 0))
                 {
-                    personadd(person[0], tempid, tempcode, library[0]);
+                    if ((tempcode > 1000) && (tempcode < 2000))
+                    {
+                        personadd(person[0], tempid, tempcode, library[0]);
+                    }
+                    else if ((tempcode > 2000) && (tempcode < 3000))
+                    {
+                        personadd(person[0], tempid, tempcode, library[1]);
+                    }
+                    else if ((tempcode > 3000) && (tempcode < 4000))
+                    {
+                        personadd(person[0], tempid, tempcode, library[2]);
+                    }
                 }
-                else if ((tempcode > 2000) && (tempcode < 3000))
+                else if ((tempid > 100) && (tempid < 300))
                 {
-                    personadd(person[0], tempid, tempcode, library[1]);
-                }
-                else if ((tempcode > 3000) && (tempcode < 4000))
-                {
-                    personadd(person[0], tempid, tempcode, library[2]);
+                    if ((tempcode > 1000) && (tempcode < 2000))
+                    {
+                        personadd(person[1], tempid, tempcode, library[0]);
+                    }
+                    else if ((tempcode > 2000) && (tempcode < 3000))
+                    {
+                        personadd(person[1], tempid, tempcode, library[1]);
+                    }
+                    else if ((tempcode > 3000) && (tempcode < 4000))
+                    {
+                        personadd(person[1], tempid, tempcode, library[2]);
+                    }
                 }
             }
-            else if ((tempid > 100) && (tempid < 300))
+            catch(int excep) 
             {
-                if ((tempcode > 1000) && (tempcode < 2000))
-                {
-                    personadd(person[1], tempid, tempcode, library[0]);
-                }
-                else if ((tempcode > 2000) && (tempcode < 3000))
-                {
-                    personadd(person[1], tempid, tempcode, library[1]);
-                }
-                else if ((tempcode > 3000) && (tempcode < 4000))
-                {
-                    personadd(person[1], tempid, tempcode, library[2]);
-                }
+                cout << excep << "Input error ";
             }
+     
         }
         else if (choice == 3)
         {
@@ -566,17 +594,17 @@ void search(BookNode* head, int code,string title)
         {
             cout << current->book->gettitle() << "exists" << endl;
             cout << "catagory:";
-            if ((current->book->getcode() > 1000) && (current->book->getcode() > 2000))
+            if ((current->book->getcode() > 1000) && (current->book->getcode() < 2000))
             {
                 cout << "Childrens Book" << endl;
                 cout << "available: " << current->book->getavailable() << "Rented:" << current->book->getrented();
             }
-            else if ((current->book->getcode() > 2000) && (current->book->getcode() > 3000))
+            else if ((current->book->getcode() > 2000) && (current->book->getcode() < 3000))
             {
                 cout << "Computer Book" << endl;
                 cout << "available: " << current->book->getavailable() << "Rented:" << current->book->getrented();
             }
-            else if ((current->book->getcode() >32000) && (current->book->getcode() > 4000))
+            else if ((current->book->getcode() >32000) && (current->book->getcode() < 4000))
             {
                 cout << "Novel" << endl;
                 cout << "available: " << current->book->getavailable() << "Rented:" << current->book->getrented();
@@ -584,8 +612,7 @@ void search(BookNode* head, int code,string title)
         }
         else
         {
-            cout << "Book not found please try again";
-            break;
+           // cout << "Book not found please try again";
         }
         current = current->link;
     }
@@ -696,28 +723,42 @@ void personadd(PersonNode* head, int ID, int code, BookNode* library)
    
     BookNode* current = library; // Initialize current
     PersonNode* currentpers = head;
-   // cout << "You have rented " << currentpers->person->getcount() << " Book.";
-    cout << "getting";
+    cout << "You have rented " << currentpers->person->getcount() << " Book.\n";
+    int testcount;
     while (currentpers != NULL)
     {
         if (currentpers->person->getid() == ID)
         {
-            if (currentpers->person->getcode1() == 0)
+            if (currentpers->person->getcount() == 0)
             {
-                cout << "Book set";
+                
                 current->book->removebook(current, code);
                 int count = currentpers->person->getcount();
                 count++;
+                currentpers->person->setcount(count);
                 currentpers->person->setcode1(code);
+                cout << "you have rented Book '" << current->book->gettitle() <<"'\n";
             }
-            else if (currentpers->person->getcode2() == 0)
+            else if (currentpers->person->getcount() == 1)
             {
-                cout << "Book set";
+                
                 current->book->removebook(current, code);
                int count = currentpers->person->getcount();
                count++;
                currentpers->person->setcount(count);
                 currentpers->person->setcode2(code);
+                cout << "you have rented Book '" << current->book->gettitle() << "'\n";
+                testcount = currentpers->person->getcount();
+            }
+            else if (currentpers->person->getcount() == 2)
+            {
+
+                current->book->removebook(current, code);
+                int count = currentpers->person->getcount();
+                count++;
+                currentpers->person->setcount(count);
+                currentpers->person->setcode3(code);
+                cout << "you have rented Book '" << current->book->gettitle() << "'\n";
             }
          
         }
@@ -765,7 +806,15 @@ void personreturn(PersonNode* head, int ID, int code, BookNode* library)
                 currentpers->person->setcount(count);
                 currentpers->person->setcode2(0);
             }
-
+            else if (currentpers->person->getcode3() == code)
+            {
+                cout << "Do you want to return: " << current->book->gettitle() << " (y/n) " << endl;
+                current->book->addbook(current, code);
+                int count = currentpers->person->getcount();
+                count--;
+                currentpers->person->setcount(count);
+                currentpers->person->setcode2(0);
+            }
         }
         currentpers = currentpers->link;
         current = current->link;
