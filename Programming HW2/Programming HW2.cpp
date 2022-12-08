@@ -79,11 +79,12 @@ int main()
     Teacher* techertemp = new Teacher;
     Student* studenttemp = new Student;
     BookNode* node = new BookNode();
+    // Data Processing
     processdata(temp,computer,noveltemp,node);
- 
     processperson(techertemp, studenttemp);
-    showallbooks();
-    int choice = 0;
+   // showallbooks(); Debugging 
+    int choice = 0; // For choice inputs
+    // Menu Start
     while (!(choice == 6))
     {
         cout << "--------------------------" << endl << "         Menu" << endl << "--------------------------" << endl;
@@ -93,7 +94,7 @@ int main()
         cout << "  4. Show my information" << endl;
         cout << "  5. Show all books" << endl;
         cout << "  6. Exit" << endl;
-        cin >> choice;
+        cin >> choice; // User inputs choice
         if (choice == 1)
         {
             // Exception Handling
@@ -109,6 +110,7 @@ int main()
                 }
                 cout << endl << "Enter Title: ";
                 cin >> searchtitle;
+                // Changes depending on code
                 if ((code > 1000) && (code < 2000))
                 {
                     search(library[0], code, searchtitle);
@@ -126,7 +128,7 @@ int main()
                     cout << "Please Enter a valid code" << endl;
                 }
             }
-            
+            // Error exception for code
             catch (int codeExcep)
             {
                 if (codeExcep < 0)
@@ -142,15 +144,22 @@ int main()
         }
         else if (choice == 2)
         {
+            // Exception handling
             try{
                 int tempid;
                 int tempcode;
                 cout << "Enter your ID: ";
-                cin >> tempid;
+                cin >> tempid; // Enter Student ID
+                if (tempid < 0)
+                {
+                    throw tempid;
+                }
                 cout << "Enter the book code to add : ";
-                cin >> tempcode;
+                cin >> tempcode; // Enter Book code
+                // Checks ID
                 if ((tempid < 100) && (tempid > 0))
                 {
+                    // checks for book code
                     if ((tempcode > 1000) && (tempcode < 2000))
                     {
                         personadd(person[0], tempid, tempcode, library[0]);
@@ -182,7 +191,10 @@ int main()
             }
             catch(int excep) 
             {
-                cout << excep << "Input error ";
+                if (excep < 0)
+                {
+                    cout << excep << " Error negative number" << endl;
+                }
             }
      
         }
@@ -191,9 +203,9 @@ int main()
             int tempid;
             int tempcode;
             cout << "Enter your ID: ";
-            cin >> tempid;
+            cin >> tempid; // Enter ID
             cout << "Enter the book code to return : ";
-            cin >> tempcode;
+            cin >> tempcode; // book code
             if ((tempid < 100) && (tempid > 0))
             {
                 if ((tempcode > 1000) && (tempcode < 2000))
@@ -597,17 +609,17 @@ void search(BookNode* head, int code,string title)
             if ((current->book->getcode() > 1000) && (current->book->getcode() < 2000))
             {
                 cout << "Childrens Book" << endl;
-                cout << "available: " << current->book->getavailable() << "Rented:" << current->book->getrented();
+                cout << "available: " << current->book->getavailable() << "Rented:" << current->book->getrented() << endl;
             }
             else if ((current->book->getcode() > 2000) && (current->book->getcode() < 3000))
             {
                 cout << "Computer Book" << endl;
-                cout << "available: " << current->book->getavailable() << "Rented:" << current->book->getrented();
+                cout << "available: " << current->book->getavailable() << "Rented:" << current->book->getrented() << endl;
             }
-            else if ((current->book->getcode() >32000) && (current->book->getcode() < 4000))
+            else if ((current->book->getcode() >3000) && (current->book->getcode() < 4000))
             {
                 cout << "Novel" << endl;
-                cout << "available: " << current->book->getavailable() << "Rented:" << current->book->getrented();
+                cout << "available: " << current->book->getavailable() << "Rented:" << current->book->getrented() << endl;
             }
         }
         else

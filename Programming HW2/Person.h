@@ -39,6 +39,12 @@ public:
         this->count = p1.count;
     }
     //destructor
+    ~Person()
+    {
+        this->id = 0;
+        this->name = "";
+        this->count = 0;
+    }
 private:
     // set id of person
     int id;
