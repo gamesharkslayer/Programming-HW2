@@ -75,7 +75,11 @@ public:
     }
 
     //Destructor
-  
+    ~Book()
+    {
+        code = 0;
+        title = "";
+    }
 private:
     // book code
     int code;
